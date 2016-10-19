@@ -1,0 +1,54 @@
+{
+  "name": "@unfold/webpack-serve",
+  "version": "0.1.0",
+  "description": "Serve webpack assets with webpack-dev-server in pretty print",
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "scripts": {
+    "test": "eslint lib",
+    "build": "babel src --out-dir lib",
+    "publish": "npm run build && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unfold/webpack-serve.git"
+  },
+  "keywords": [
+    "webpack",
+    "hot",
+    "reload",
+    "create-react-app",
+    "make-development-experience-great-again"
+  ],
+  "author": "Unfold",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/unfold/webpack-serve/issues"
+  },
+  "homepage": "https://github.com/unfold/webpack-serve#readme",
+  "eslintConfig": {
+    "extends": "@unfold/eslint-config"
+  },
+  "babel": {
+    "presets": [
+      "@unfold/babel-preset"
+    ]
+  },
+  "devDependencies": {
+    "@unfold/eslint-config": "^1.2.0",
+    "eslint": "^3.8.1"
+  },
+  "dependencies": {
+    "@unfold/babel-preset": "^1.0.1",
+    "babel-cli": "^6.16.0",
+    "chalk": "^1.1.3",
+    "detect-port": "^1.0.1",
+    "invariant": "^2.2.1",
+    "lodash": "^4.16.4",
+    "react-dev-utils": "^0.2.1",
+    "webpack": "^1.13.2",
+    "webpack-dev-server": "^1.16.2"
+  }
+}

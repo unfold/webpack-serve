@@ -10,7 +10,7 @@
     "test": "eslint lib",
     "build": "babel src --out-dir lib",
     "prepublish": "npm run build",
-    "postpublish": "g push origin"
+    "postpublish": "git push origin"
   },
   "repository": {
     "type": "git",

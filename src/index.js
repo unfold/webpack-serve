@@ -1,28 +1,11 @@
 import path from 'path'
 import invariant from 'invariant'
 import defaults from 'lodash/defaults'
-import isArray from 'lodash/isArray'
-import mapValues from 'lodash/mapValues'
 import clearConsole from 'react-dev-utils/clearConsole'
 import openBrowser from 'react-dev-utils/openBrowser'
 import WebpackDevServer from 'webpack-dev-server'
 import createCompiler from './createCompiler'
-
-const hotDevClient = path.join(__dirname, '../node_modules/react-dev-utils/webpackHotDevClient')
-
-const includeClientEntry = config => {
-  if (isArray(config.entry)) {
-    return {
-      ...config,
-      entry: [...config.entry, hotDevClient],
-    }
-  }
-
-  return {
-    ...config,
-    entry: mapValues(config.entry, entries => [...entries, hotDevClient]),
-  }
-}
+import includeClientEntry from './includeClientEntry'
 
 const setup = params => {
   const options = defaults(params, {
@@ -53,13 +36,13 @@ const setup = params => {
 
   devServer.listen(options.port, error => {
     if (error) {
-      console.log(error)
+      console.log(error) // eslint-disable-line no-console
       return
     }
 
     clearConsole()
     openBrowser(url)
-    console.log('Starting dev server')
+    console.log('Starting dev server')  // eslint-disable-line no-console
   })
 }
 

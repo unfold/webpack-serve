@@ -9,7 +9,7 @@
   "scripts": {
     "test": "eslint lib",
     "build": "babel src --out-dir lib",
-    "publish": "npm run build && npm publish"
+    "publish": "npm run build && npm publish && g push origin"
   },
   "repository": {
     "type": "git",

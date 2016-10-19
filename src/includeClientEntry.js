@@ -1,6 +1,7 @@
 import isArray from 'lodash/isArray'
 import mapValues from 'lodash/mapValues'
-import client from './client'
+
+const client = 'react-dev-utils/webpackHotDevClient'
 
 export default config => {
   if (isArray(config.entry)) {

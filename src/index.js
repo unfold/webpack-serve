@@ -30,9 +30,11 @@ const setup = params => {
     watchOptions: {
       ignored: /node_modules/,
     },
-
-    setup: app => options.middleware && app.use(options.middleware),
   })
+
+  if (options.middleware) {
+    devServer.use(options.middleware)
+  }
 
   devServer.listen(options.port, error => {
     if (error) {

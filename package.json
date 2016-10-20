@@ -39,6 +39,7 @@
   },
   "devDependencies": {
     "@unfold/eslint-config": "^1.2.0",
+    "chokidar": "^1.6.1",
     "eslint": "^3.8.1"
   },
   "dependencies": {

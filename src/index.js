@@ -70,7 +70,7 @@ const setup = params => {
 
         clearConsole()
         openBrowser(url)
-        console.log('Starting dev server')
+        console.log(chalk.cyan('Starting development server...'))
       })
     }
   })

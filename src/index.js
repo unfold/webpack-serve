@@ -22,6 +22,7 @@ const setup = params => {
     hostname: process.env.HOSTNAME || 'localhost',
     https: false,
     publicPath: params.config.output.publicPath,
+    contentBase: path.resolve('public'),
   })
 
   const config = includeClientEntry(options.config)
@@ -51,7 +52,7 @@ const setup = params => {
         hot: true,
         quiet: true,
         publicPath: options.publicPath,
-        contentBase: path.resolve('public'),
+        contentBase: options.contentBase,
         historyApiFallback: true,
         https: options.https,
         watchOptions: {

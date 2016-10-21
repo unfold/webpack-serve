@@ -1,6 +1,6 @@
 {
   "name": "@unfold/webpack-serve",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Serve webpack assets with webpack-dev-server in pretty print",
   "main": "lib/index.js",
   "files": [

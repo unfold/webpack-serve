@@ -52,6 +52,7 @@ const setup = params => {
         quiet: true,
         publicPath: options.publicPath,
         contentBase: path.resolve('public'),
+        historyApiFallback: true,
         https: options.https,
         watchOptions: {
           ignored: /node_modules/,

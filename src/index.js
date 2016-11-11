@@ -28,7 +28,7 @@ const setup = params => {
   const config = includeClientEntry(options.config)
 
   detectPort(options.port).then(alternativePort => {
-    if (alternativePort === options.port) {
+    if (alternativePort === Number(options.port)) {
       return options.port
     }
 

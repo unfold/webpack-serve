@@ -1124,12 +1124,6 @@ commander@^2.8.1, commander@^2.9.0:
   dependencies:
     graceful-readlink ">= 1.0.0"
 
-commander@~2.8.1:
-  version "2.8.1"
-  resolved "https://registry.yarnpkg.com/commander/-/commander-2.8.1.tgz#06be367febfda0c330aa1e2a072d3dc9762425d4"
-  dependencies:
-    graceful-readlink ">= 1.0.0"
-
 compressible@~2.0.8:
   version "2.0.8"
   resolved "https://registry.yarnpkg.com/compressible/-/compressible-2.0.8.tgz#7162e6c46d3b9d200ffb45cb4e4a0f7832732503"
@@ -1303,11 +1297,9 @@ detect-indent@^3.0.1:
     minimist "^1.1.0"
     repeating "^1.1.0"
 
-detect-port@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/detect-port/-/detect-port-1.0.1.tgz#3e1aa6a7ff6677bb60894b291172529d880c1e85"
-  dependencies:
-    commander "~2.8.1"
+detect-port@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/detect-port/-/detect-port-1.0.5.tgz#d6a2e2f623ce0523e67d293820194288d8c0da15"
 
 doctrine@^1.2.2:
   version "1.5.0"
@@ -2826,9 +2818,9 @@ rc@~1.1.0:
     minimist "^1.2.0"
     strip-json-comments "~1.0.4"
 
-react-dev-utils@^0.2.1:
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-0.2.1.tgz#c017d6f530502b28b735dbac3841a7b8665838f5"
+react-dev-utils:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/react-dev-utils/-/react-dev-utils-0.3.0.tgz#4a0527062a757579cb316fa254681aecca09d038"
   dependencies:
     ansi-html "0.0.5"
     chalk "1.1.3"

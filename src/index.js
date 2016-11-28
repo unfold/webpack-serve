@@ -40,41 +40,40 @@ const setup = params => {
         return alternativePort
       }
 
+      process.exit()
       return false
     })
   })
   .then(port => {
-    if (port) {
-      const url = `${options.https ? 'https' : 'http'}://${options.hostname}:${port}`
-      const compiler = createCompiler(config, url)
-      const devServer = new WebpackDevServer(compiler, {
-        clientLogLevel: 'none',
-        hot: true,
-        quiet: true,
-        publicPath: options.publicPath,
-        contentBase: options.contentBase,
-        historyApiFallback: true,
-        https: options.https,
-        watchOptions: {
-          ignored: /node_modules/,
-        },
-      })
+    const url = `${options.https ? 'https' : 'http'}://${options.hostname}:${port}`
+    const compiler = createCompiler(config, url)
+    const devServer = new WebpackDevServer(compiler, {
+      clientLogLevel: 'none',
+      hot: true,
+      quiet: true,
+      publicPath: options.publicPath,
+      contentBase: options.contentBase,
+      historyApiFallback: true,
+      https: options.https,
+      watchOptions: {
+        ignored: /node_modules/,
+      },
+    })
 
-      if (options.middleware) {
-        devServer.use(options.middleware)
+    if (options.middleware) {
+      devServer.use(options.middleware)
+    }
+
+    devServer.listen(port, error => {
+      if (error) {
+        console.log(error)
+        return
       }
 
-      devServer.listen(port, error => {
-        if (error) {
-          console.log(error)
-          return
-        }
-
-        clearConsole()
-        openBrowser(url)
-        console.log(chalk.cyan('Starting development server...'))
-      })
-    }
+      clearConsole()
+      openBrowser(url)
+      console.log(chalk.cyan('Starting development server...'))
+    })
   })
 }
 

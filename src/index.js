@@ -20,7 +20,6 @@ const setup = (config, params) => {
   const options = defaults(params, {
     port: process.env.PORT || 8080,
     hostname: process.env.HOSTNAME || 'localhost',
-    https: false,
     publicPath: config.output.publicPath,
     contentBase: path.resolve('public'),
   })
@@ -45,22 +44,20 @@ const setup = (config, params) => {
   .then(port => {
     const url = `${options.https ? 'https' : 'http'}://${options.hostname}:${port}`
     const compiler = createCompiler(includeClientEntry(config), url)
+
     const devServer = new WebpackDevServer(compiler, {
       clientLogLevel: 'none',
       hot: true,
       quiet: true,
       publicPath: options.publicPath,
       contentBase: options.contentBase,
-      historyApiFallback: true,
+      historyApiFallback: options.historyApiFallback || !options.server,
       https: options.https,
+      setup: app => options.server && app.use(options.server),
       watchOptions: {
         ignored: /node_modules/,
       },
     })
-
-    if (options.middleware) {
-      devServer.use(options.middleware)
-    }
 
     devServer.listen(port, error => {
       if (error) {

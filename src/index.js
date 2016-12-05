@@ -57,6 +57,7 @@ const setup = (config, params) => {
       watchOptions: {
         ignored: /node_modules/,
       },
+      proxy: options.proxy,
     })
 
     devServer.listen(port, error => {

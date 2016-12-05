@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console, prefer-template */
 
 import path from 'path'
 import chalk from 'chalk'
@@ -7,6 +7,7 @@ import detectPort from 'detect-port'
 import clearConsole from 'react-dev-utils/clearConsole'
 import prompt from 'react-dev-utils/prompt'
 import openBrowser from 'react-dev-utils/openBrowser'
+import getProcessForPort from 'react-dev-utils/getProcessForPort'
 import WebpackDevServer from 'webpack-dev-server'
 import createCompiler from './createCompiler'
 import includeClientEntry from './includeClientEntry'
@@ -29,10 +30,13 @@ const setup = (config, params) => {
       return options.port
     }
 
-    return prompt(chalk.yellow(
-      `Something is already running on port ${options.port}. \n` +
-      `Use port ${alternativePort} instead?`
-    ), true).then(useAlternative => {
+    const existingProcess = getProcessForPort(options.port)
+    const question = chalk.yellow(
+      `Something is already running on port ${options.port}.`
+       + (existingProcess ? ` Probably:\n  ${existingProcess}` : '')
+    ) + `\n\nUse port ${alternativePort} instead?`
+
+    return prompt(question, true).then(useAlternative => {
       if (useAlternative) {
         return alternativePort
       }

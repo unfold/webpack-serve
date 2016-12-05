@@ -6,7 +6,7 @@ This is a fork of the development server bundled with [create-react-app](https:/
 #### npm
 `npm install --save-dev @unfold/webpack-serve`
 #### yarn
-`npm add --dev @unfold/webpack-serve`
+`yarn add --dev @unfold/webpack-serve`
 
 ## Usage
 `scripts/serve.js`
@@ -14,7 +14,7 @@ This is a fork of the development server bundled with [create-react-app](https:/
 import webpackServe from '@unfold/webpack-serve'
 import config from '../webpack.config'
 
-webpackServe({ config })
+webpackServe(config)
 ```
 
 ### With own express/connect backend
@@ -23,8 +23,7 @@ import webpackServe from '@unfold/webpack-serve'
 import config from '../webpack.config'
 import server from '../src/server.js'
 
-webpackServe({ 
-  config,
-  middleware: server,
+webpackServe(config, { 
+  middleware: server
 })
 ```

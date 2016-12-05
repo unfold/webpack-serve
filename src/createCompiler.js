@@ -35,7 +35,7 @@ export default (config, url) => {
 
     console.log(chalk.green('Compiled successfully! \n'))
     console.log('The app is running at:\n')
-    console.log('  ', chalk.cyan.underline(url))
+    console.log('  ', chalk.cyan.underline(url), '\n')
   })
 
   return compiler

@@ -11,8 +11,8 @@ import WebpackDevServer from 'webpack-dev-server'
 import createCompiler from './createCompiler'
 import includeClientEntry from './includeClientEntry'
 
-const setup = params => {
-  if (!params.config) {
+const setup = (config, params) => {
+  if (!config) {
     console.log(chalk.red('webpack config is missing.'))
     return
   }
@@ -21,11 +21,9 @@ const setup = params => {
     port: process.env.PORT || 8080,
     hostname: process.env.HOSTNAME || 'localhost',
     https: false,
-    publicPath: params.config.output.publicPath,
+    publicPath: config.output.publicPath,
     contentBase: path.resolve('public'),
   })
-
-  const config = includeClientEntry(options.config)
 
   detectPort(options.port).then(alternativePort => {
     if (alternativePort === Number(options.port)) {
@@ -46,7 +44,7 @@ const setup = params => {
   })
   .then(port => {
     const url = `${options.https ? 'https' : 'http'}://${options.hostname}:${port}`
-    const compiler = createCompiler(config, url)
+    const compiler = createCompiler(includeClientEntry(config), url)
     const devServer = new WebpackDevServer(compiler, {
       clientLogLevel: 'none',
       hot: true,

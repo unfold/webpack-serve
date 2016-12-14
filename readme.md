@@ -24,6 +24,6 @@ import config from '../webpack.config'
 import server from '../src/server.js'
 
 webpackServe(config, { 
-  middleware: server
+  server,
 })
 ```

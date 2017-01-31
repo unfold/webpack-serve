@@ -50,7 +50,7 @@
     "detect-port": "^1.0.5",
     "lodash": "^4.16.4",
     "react-dev-utils": "0.4.x",
-    "webpack": "^1.13.2",
-    "webpack-dev-server": "^1.16.2"
+    "webpack": "2.x.x",
+    "webpack-dev-server": "2.x.x"
   }
 }

@@ -21,6 +21,11 @@ export default config => {
 
   return {
     ...config,
-    entry: mapValues(config.entry, entries => [...entries, client]),
+    entry: mapValues(config.entry, entry => {
+      if (isString(entry)) {
+        return [entry, client]
+      }
+      return [...entry, client]
+    }),
   }
 }

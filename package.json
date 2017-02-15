@@ -3,6 +3,9 @@
   "version": "0.6.0",
   "description": "Serve webpack assets with webpack-dev-server in pretty print",
   "main": "lib/index.js",
+  "bin": {
+    "webpack-serve": "lib/cli.js"
+  },
   "files": [
     "lib"
   ],
@@ -51,6 +54,7 @@
     "lodash": "^4.16.4",
     "react-dev-utils": "0.4.x",
     "webpack": "2.x.x",
-    "webpack-dev-server": "2.x.x"
+    "webpack-dev-server": "2.x.x",
+    "yargs": "^6.6.0"
   }
 }

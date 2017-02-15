@@ -9,15 +9,13 @@ This is a fork of the development server bundled with [create-react-app](https:/
 `yarn add --dev @unfold/webpack-serve`
 
 ## Usage
-`scripts/serve.js`
-```js
-import webpackServe from '@unfold/webpack-serve'
-import config from '../webpack.config'
-
-webpackServe(config)
-```
+### In the terminal
+run `webpack-serve` in your terminal in the root of your project.
+All arguments passed are passed over to webpack CLI.
 
 ### With own express/connect backend
+You can import it and use and configure it with your own middleware or server.
+
 ```js
 import webpackServe from '@unfold/webpack-serve'
 import config from '../webpack.config'
@@ -25,5 +23,6 @@ import server from '../src/server.js'
 
 webpackServe(config, { 
   server,
+  port: 5050,
 })
 ```

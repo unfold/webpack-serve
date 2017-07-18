@@ -5,8 +5,17 @@ import webpack from 'webpack'
 import clearConsole from 'react-dev-utils/clearConsole'
 import formatWebpackMessages from 'react-dev-utils/formatWebpackMessages'
 
-export default (config, url) => {
-  const compiler = webpack(config)
+export default (config, urls, appName = process.env.npm_package_name) => {
+  let compiler
+  try {
+    compiler = webpack(config)
+  } catch (error) {
+    console.log(chalk.red('Failed to compile.'))
+    console.log()
+    console.log(error.message || error)
+    console.log()
+    process.exit(1)
+  }
 
   compiler.plugin('invalid', () => {
     clearConsole()
@@ -18,24 +27,22 @@ export default (config, url) => {
     const messages = formatWebpackMessages(stats.toJson({}, true))
 
     if (messages.errors.length) {
-      console.log(chalk.red('Failed to compile. \n'))
-      messages.errors.forEach(message => {
-        console.log(message, '\n')
-      })
+      console.log(chalk.red('Failed to compile.\n'))
+      console.log(messages.errors.join('\n\n'))
       return
     }
 
     if (messages.warnings.length) {
       console.log(chalk.yellow('Compiled with warnings. \n'))
-      messages.warnings.forEach(message => {
-        console.log(message, '\n')
-      })
+      console.log(messages.warnings.join('\n\n'))
       return
     }
 
     console.log(chalk.green('Compiled successfully! \n'))
-    console.log('The app is running at:\n')
-    console.log('  ', chalk.cyan.underline(url), '\n')
+    console.log(`You can now view ${appName ? chalk.bold(appName) : 'the app'} in your browser`)
+    console.log()
+    console.log(`  ${chalk.bold('Local:')}            ${urls.localUrlForTerminal}`)
+    console.log(`  ${chalk.bold('On Your Network:')}  ${urls.lanUrlForTerminal}`)
   })
 
   return compiler

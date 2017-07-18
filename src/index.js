@@ -3,14 +3,15 @@
 import path from 'path'
 import chalk from 'chalk'
 import defaults from 'lodash/defaults'
-import detectPort from 'detect-port'
-import clearConsole from 'react-dev-utils/clearConsole'
-import prompt from 'react-dev-utils/prompt'
 import openBrowser from 'react-dev-utils/openBrowser'
-import getProcessForPort from 'react-dev-utils/getProcessForPort'
+import { choosePort, prepareUrls } from 'react-dev-utils/WebpackDevServerUtils'
+import errorOverlayMiddleware from 'react-error-overlay/middleware'
 import WebpackDevServer from 'webpack-dev-server'
 import createCompiler from './createCompiler'
-import includeClientEntry from './includeClientEntry'
+import addEntriesToConfig from './addEntriesToConfig'
+
+process.env.BABEL_ENV = 'development'
+process.env.NODE_ENV = 'development'
 
 const setup = (config, params) => {
   if (!config) {
@@ -23,43 +24,43 @@ const setup = (config, params) => {
     hostname: process.env.HOSTNAME || 'localhost',
     publicPath: config.output.publicPath,
     contentBase: path.resolve('public'),
+    https: process.env.HTTPS,
   })
 
-  detectPort(options.port)
-    .then(alternativePort => {
-      if (alternativePort === Number(options.port)) {
-        return options.port
+  choosePort(null, options.port)
+    .then(port => {
+      if (port == null) {
+        process.exit()
       }
 
-      const existingProcess = getProcessForPort(options.port)
-      const question =
-        chalk.yellow(
-          `Something is already running on port ${options.port}.` +
-            (existingProcess ? ` Probably:\n  ${existingProcess}` : '')
-        ) + `\n\nUse port ${alternativePort} instead?`
-
-      return prompt(question, true).then(useAlternative => {
-        if (useAlternative) {
-          return alternativePort
-        }
-
-        process.exit()
-        return false
-      })
-    })
-    .then(port => {
-      const url = `${options.https ? 'https' : 'http'}://${options.hostname}:${port}`
-      const compiler = createCompiler(includeClientEntry(config), url)
+      const urls = prepareUrls(options.https ? 'https' : 'http', process.env.HOST || '::', port)
+      const compiler = createCompiler(
+        addEntriesToConfig(
+          config,
+          require.resolve('react-dev-utils/webpackHotDevClient'),
+          require.resolve('react-error-overlay'),
+        ),
+        urls,
+      )
 
       const devServer = new WebpackDevServer(compiler, {
         clientLogLevel: 'none',
+        compress: true,
         hot: true,
         quiet: true,
         publicPath: options.publicPath,
         contentBase: options.contentBase,
+        watchContentBase: true,
+        overlay: false,
         historyApiFallback: options.historyApiFallback || !options.server,
         https: options.https,
-        setup: app => options.server && app.use(options.server),
+        setup: app => {
+          app.use(errorOverlayMiddleware())
+
+          if (options.server) {
+            app.use(options.server)
+          }
+        },
         watchOptions: {
           ignored: /node_modules/,
         },
@@ -72,10 +73,22 @@ const setup = (config, params) => {
           return
         }
 
-        clearConsole()
-        openBrowser(url)
         console.log(chalk.cyan('Starting development server...'))
+        openBrowser(urls.localUrlForBrowser)
       })
+      ;['SIGINT', 'SIGTERM'].forEach(sig => {
+        process.on(sig, () => {
+          devServer.close()
+          process.exit()
+        })
+      })
+    })
+    .catch(error => {
+      if (error && error.message) {
+        console.log(error.message)
+      }
+
+      process.exit(1)
     })
 }
 

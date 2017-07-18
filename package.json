@@ -10,11 +10,13 @@
     "lib"
   ],
   "scripts": {
-    "test": "eslint lib",
-    "prebuild": "rm -r lib",
+    "lint": "eslint src",
+    "prettify": "prettier --trailing-comma es5 --single-quote --no-semi --print-width 100 --write src/**/*.js",
+    "prebuild": "rm -r lib || true",
     "build": "babel src --out-dir lib",
-    "prepublish": "npm run build",
-    "postpublish": "git push origin"
+    "prepublishOnly": "npm run build",
+    "postpublish": "git push origin",
+    "precommit": "lint-staged"
   },
   "repository": {
     "type": "git",
@@ -41,10 +43,20 @@
       "@unfold/babel-preset"
     ]
   },
+  "lint-staged": {
+    "src/**/*.js": [
+      "eslint --fix",
+      "prettier --trailing-comma es5 --single-quote --no-semi --print-width 100 --write",
+      "git add"
+    ]
+  },
   "devDependencies": {
     "@unfold/eslint-config": "^1.2.0",
     "chokidar": "^1.6.1",
-    "eslint": "^3.8.1"
+    "eslint": "^3.8.1",
+    "husky": "^0.14.3",
+    "lint-staged": "^4.0.2",
+    "prettier": "^1.5.3"
   },
   "dependencies": {
     "@unfold/babel-preset": "^1.0.1",

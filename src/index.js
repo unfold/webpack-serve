@@ -25,56 +25,58 @@ const setup = (config, params) => {
     contentBase: path.resolve('public'),
   })
 
-  detectPort(options.port).then(alternativePort => {
-    if (alternativePort === Number(options.port)) {
-      return options.port
-    }
-
-    const existingProcess = getProcessForPort(options.port)
-    const question = chalk.yellow(
-      `Something is already running on port ${options.port}.`
-       + (existingProcess ? ` Probably:\n  ${existingProcess}` : '')
-    ) + `\n\nUse port ${alternativePort} instead?`
-
-    return prompt(question, true).then(useAlternative => {
-      if (useAlternative) {
-        return alternativePort
+  detectPort(options.port)
+    .then(alternativePort => {
+      if (alternativePort === Number(options.port)) {
+        return options.port
       }
 
-      process.exit()
-      return false
-    })
-  })
-  .then(port => {
-    const url = `${options.https ? 'https' : 'http'}://${options.hostname}:${port}`
-    const compiler = createCompiler(includeClientEntry(config), url)
+      const existingProcess = getProcessForPort(options.port)
+      const question =
+        chalk.yellow(
+          `Something is already running on port ${options.port}.` +
+            (existingProcess ? ` Probably:\n  ${existingProcess}` : '')
+        ) + `\n\nUse port ${alternativePort} instead?`
 
-    const devServer = new WebpackDevServer(compiler, {
-      clientLogLevel: 'none',
-      hot: true,
-      quiet: true,
-      publicPath: options.publicPath,
-      contentBase: options.contentBase,
-      historyApiFallback: options.historyApiFallback || !options.server,
-      https: options.https,
-      setup: app => options.server && app.use(options.server),
-      watchOptions: {
-        ignored: /node_modules/,
-      },
-      proxy: options.proxy,
-    })
+      return prompt(question, true).then(useAlternative => {
+        if (useAlternative) {
+          return alternativePort
+        }
 
-    devServer.listen(port, error => {
-      if (error) {
-        console.log(error)
-        return
-      }
-
-      clearConsole()
-      openBrowser(url)
-      console.log(chalk.cyan('Starting development server...'))
+        process.exit()
+        return false
+      })
     })
-  })
+    .then(port => {
+      const url = `${options.https ? 'https' : 'http'}://${options.hostname}:${port}`
+      const compiler = createCompiler(includeClientEntry(config), url)
+
+      const devServer = new WebpackDevServer(compiler, {
+        clientLogLevel: 'none',
+        hot: true,
+        quiet: true,
+        publicPath: options.publicPath,
+        contentBase: options.contentBase,
+        historyApiFallback: options.historyApiFallback || !options.server,
+        https: options.https,
+        setup: app => options.server && app.use(options.server),
+        watchOptions: {
+          ignored: /node_modules/,
+        },
+        proxy: options.proxy,
+      })
+
+      devServer.listen(port, error => {
+        if (error) {
+          console.log(error)
+          return
+        }
+
+        clearConsole()
+        openBrowser(url)
+        console.log(chalk.cyan('Starting development server...'))
+      })
+    })
 }
 
 export default setup

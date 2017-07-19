@@ -23,7 +23,7 @@ const setup = (config, params) => {
     port: process.env.PORT || 8080,
     hostname: process.env.HOSTNAME || 'localhost',
     publicPath: config.output.publicPath,
-    contentBase: path.resolve('public'),
+    contentBase: process.env.CONTENT_BASE || path.resolve('public'),
     https: process.env.HTTPS,
   })
 

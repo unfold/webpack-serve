@@ -6,6 +6,12 @@ Takes your wepback config and creates a development server with hot module reloa
 
 At the moment Webpack serve only work with webpack 2.
 
+## Screenshots showing examples from console and error overlay
+![screenshot showing compiled successfully](https://user-images.githubusercontent.com/1495211/28369639-8090b76c-6c98-11e7-9cd9-c9be0e983884.png)
+![screenshot showing warnings](https://user-images.githubusercontent.com/1495211/28369637-8087885e-6c98-11e7-9b23-dcdd50aa75ab.png)
+![screenshot showing error](https://user-images.githubusercontent.com/1495211/28369638-80888592-6c98-11e7-9c58-d6bbaf6b0fbe.png)
+![screenshot showing error overlay](https://user-images.githubusercontent.com/1495211/28369770-d3359f0a-6c98-11e7-86c8-880270c8eca1.png)
+
 ## Usage
 ### In the terminal
 Either run `$(npm bin)/webpack-serve` at the root of your project, or add a `"serve": "webpack-serve",` to your package.json scripts. All arguments given are passed over to the [webpack CLI](https://webpack.js.org/api/cli/).

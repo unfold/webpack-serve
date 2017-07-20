@@ -3,6 +3,7 @@
 import path from 'path'
 import chalk from 'chalk'
 import defaults from 'lodash/defaults'
+import webpack from 'webpack'
 import openBrowser from 'react-dev-utils/openBrowser'
 import { choosePort, prepareUrls } from 'react-dev-utils/WebpackDevServerUtils'
 import errorOverlayMiddleware from 'react-error-overlay/middleware'
@@ -33,15 +34,17 @@ const setup = (config, params) => {
         process.exit()
       }
 
-      const urls = prepareUrls(options.https ? 'https' : 'http', process.env.HOST || '::', port)
-      const compiler = createCompiler(
-        addEntriesToConfig(
+      const modifiedConfig = {
+        ...addEntriesToConfig(
           config,
           require.resolve('react-dev-utils/webpackHotDevClient'),
           require.resolve('react-error-overlay'),
         ),
-        urls,
-      )
+        plugins: [...(config.plugins || []), new webpack.HotModuleReplacementPlugin()],
+      }
+
+      const urls = prepareUrls(options.https ? 'https' : 'http', process.env.HOST || '::', port)
+      const compiler = createCompiler(modifiedConfig, urls)
 
       const devServer = new WebpackDevServer(compiler, {
         clientLogLevel: 'none',

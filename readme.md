@@ -34,7 +34,7 @@ webpackServe(config, {
 
 Pass them to `webpackServe(config, { ...options })` or use `PORT=5000 HTTPS=true webpack-serve` in the terminal.
 
-### Quick example
+## Quick example
 ```bash
 mkdir my-app && cd my-app
 echo "alert('🤓')" > index.js

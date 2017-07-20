@@ -1,5 +1,5 @@
 # Webpack Serve
-Takes your wepback config and creates a development server with hot module reloading and error overlay. Built to resemble the experience you get from [create-react-app](https://github.com/facebookincubator/create-react-app).
+Takes your webpack config and creates a development server with hot module reloading and error overlay. Built to resemble the experience you get from [create-react-app](https://github.com/facebookincubator/create-react-app).
 
 ## Install
 `npm install --save-dev @unfold/webpack-serve`

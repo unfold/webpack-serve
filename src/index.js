@@ -76,7 +76,8 @@ const setup = (config, params) => {
         console.log(chalk.cyan('Starting development server...'))
         openBrowser(urls.localUrlForBrowser)
       })
-      ;['SIGINT', 'SIGTERM'].forEach(sig => {
+
+      Array.of('SIGINT', 'SIGTERM').forEach(sig => {
         process.on(sig, () => {
           devServer.close()
           process.exit()

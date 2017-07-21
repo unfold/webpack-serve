@@ -41,6 +41,9 @@
   "babel": {
     "presets": [
       "@unfold/babel-preset"
+    ],
+    "plugins": [
+      "transform-runtime"
     ]
   },
   "lint-staged": {
@@ -54,6 +57,7 @@
     "@unfold/babel-preset": "^1.0.3",
     "@unfold/eslint-config": "^2.0.1",
     "babel-cli": "^6.24.1",
+    "babel-plugin-transform-runtime": "^6.23.0",
     "eslint": "^3.8.1",
     "husky": "^0.14.3",
     "lint-staged": "^4.0.2",

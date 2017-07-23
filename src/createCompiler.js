@@ -18,12 +18,17 @@ export default (config, urls, appName = process.env.npm_package_name) => {
   }
 
   compiler.plugin('invalid', () => {
-    clearConsole()
+    if (!process.env.NO_CLEAR) {
+      clearConsole()
+    }
     console.log('Compiling...')
   })
 
   compiler.plugin('done', stats => {
-    clearConsole()
+    if (!process.env.NO_CLEAR) {
+      clearConsole()
+    }
+
     const messages = formatWebpackMessages(stats.toJson({}, true))
 
     if (messages.errors.length) {

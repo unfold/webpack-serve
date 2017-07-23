@@ -51,7 +51,7 @@ const setup = async (config, params) => {
     hot: true,
     quiet: true,
     publicPath: options.publicPath,
-    contentBase: options.contentBase,
+    contentBase: options.contentBase || undefined,
     watchContentBase: true,
     overlay: false,
     historyApiFallback: options.historyApiFallback || !options.server,

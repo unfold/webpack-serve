@@ -21,7 +21,7 @@ export default (config, urls, appName = process.env.npm_package_name) => {
     if (!process.env.NO_CLEAR) {
       clearConsole()
     }
-    console.log('Compiling...')
+    console.log('Compiling...', '\n')
   })
 
   compiler.plugin('done', stats => {
@@ -33,13 +33,13 @@ export default (config, urls, appName = process.env.npm_package_name) => {
 
     if (messages.errors.length) {
       console.log(chalk.red('Failed to compile.\n'))
-      console.log(messages.errors.join('\n\n'))
+      console.log(messages.errors.join('\n\n'), '\n')
       return
     }
 
     if (messages.warnings.length) {
       console.log(chalk.yellow('Compiled with warnings. \n'))
-      console.log(messages.warnings.join('\n\n'))
+      console.log(messages.warnings.join('\n\n'), '\n')
       return
     }
 
@@ -48,6 +48,7 @@ export default (config, urls, appName = process.env.npm_package_name) => {
     console.log()
     console.log(`  ${chalk.bold('Local:')}            ${urls.localUrlForTerminal}`)
     console.log(`  ${chalk.bold('On Your Network:')}  ${urls.lanUrlForTerminal}`)
+    console.log()
   })
 
   return compiler

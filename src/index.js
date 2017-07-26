@@ -75,7 +75,7 @@ const setup = async (config, params) => {
       return
     }
 
-    console.log(chalk.cyan('Starting development server...'))
+    console.log(chalk.cyan('Starting development server...'), '\n')
     openBrowser(urls.localUrlForBrowser)
   })
 

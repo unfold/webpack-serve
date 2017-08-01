@@ -40,7 +40,10 @@ const setup = async (config, params) => {
     require.resolve('react-error-overlay'),
   )
 
-  modifiedConfig.plugins.push(new webpack.HotModuleReplacementPlugin())
+  modifiedConfig.plugins = [
+    ...(modifiedConfig.plugins || []),
+    new webpack.HotModuleReplacementPlugin(),
+  ]
 
   const urls = prepareUrls(options.https ? 'https' : 'http', process.env.HOST || '::', port)
   const compiler = createCompiler(modifiedConfig, urls)

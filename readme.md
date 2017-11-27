@@ -4,8 +4,6 @@ Takes your webpack config and creates a development server with hot module reloa
 ## Install
 `npm install --save-dev @unfold/webpack-serve`
 
-At the moment Webpack serve only work with webpack 2.
-
 ## Usage
 ### In the terminal
 Either run `$(npm bin)/webpack-serve` at the root of your project, or add a `"serve": "webpack-serve",` to your package.json scripts. All arguments given are passed over to the [webpack CLI](https://webpack.js.org/api/cli/).
